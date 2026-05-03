@@ -1,0 +1,1640 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gram Kosh Bazaar — Farm to Consumer System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&family=Noto+Sans+Devanagari:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --earth: #2d4a1e;
+        --earth-light: #3d6429;
+        --amber: #c8862a;
+        --amber-light: #e8a93a;
+        --gold: #f5c842;
+        --terracotta: #c4522a;
+        --cream: #faf5e8;
+        --parchment: #f0e6c8;
+        --clay: #8b5e3c;
+        --sky: #1a5f7a;
+        --sky-light: #2e86ab;
+        --leaf: #5c8a3c;
+        --charcoal: #1c2117;
+        --muted: #6b7355;
+        --white: #ffffff;
+        --shadow: rgba(28, 33, 23, 0.15);
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: "DM Sans", sans-serif;
+        background: var(--cream);
+        color: var(--charcoal);
+        overflow-x: hidden;
+      }
+
+      /* ─── NAV ─── */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        background: rgba(45, 74, 30, 0.97);
+        backdrop-filter: blur(12px);
+        border-bottom: 2px solid var(--amber);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 2.5rem;
+        height: 60px;
+      }
+      .nav-brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-family: "Playfair Display", serif;
+        color: var(--gold);
+        font-size: 1.1rem;
+        font-weight: 700;
+        text-decoration: none;
+      }
+      .nav-brand .hindi {
+        font-family: "Noto Sans Devanagari", sans-serif;
+        font-size: 0.85rem;
+        color: var(--parchment);
+      }
+      .nav-links {
+        display: flex;
+        gap: 0.2rem;
+        list-style: none;
+      }
+      .nav-links a {
+        color: var(--parchment);
+        text-decoration: none;
+        font-size: 0.75rem;
+        font-weight: 500;
+        padding: 6px 10px;
+        border-radius: 4px;
+        transition: all 0.2s;
+        letter-spacing: 0.03em;
+        text-transform: uppercase;
+      }
+      .nav-links a:hover {
+        background: var(--amber);
+        color: var(--charcoal);
+      }
+
+      /* ─── HERO ─── */
+      .hero {
+        min-height: 100vh;
+        background:
+          radial-gradient(
+            ellipse at 20% 80%,
+            rgba(200, 134, 42, 0.18) 0%,
+            transparent 60%
+          ),
+          radial-gradient(
+            ellipse at 80% 20%,
+            rgba(92, 138, 60, 0.2) 0%,
+            transparent 60%
+          ),
+          linear-gradient(160deg, #1c2117 0%, #2d4a1e 45%, #1a5f7a 100%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 80px 2rem 4rem;
+        position: relative;
+        overflow: hidden;
+      }
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: radial-gradient(
+          circle at 1px 1px,
+          rgba(248, 200, 66, 0.06) 1px,
+          transparent 0
+        );
+        background-size: 32px 32px;
+      }
+      .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(200, 134, 42, 0.2);
+        border: 1px solid var(--amber);
+        color: var(--amber-light);
+        padding: 6px 16px;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        margin-bottom: 1.5rem;
+        animation: fadeUp 0.6s ease both;
+      }
+      .hero h1 {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(2.8rem, 6vw, 5.5rem);
+        font-weight: 900;
+        line-height: 1.05;
+        color: var(--white);
+        animation: fadeUp 0.7s ease 0.1s both;
+      }
+      .hero h1 .accent {
+        color: var(--gold);
+      }
+      .hero-sub {
+        font-size: 1rem;
+        color: rgba(240, 230, 200, 0.75);
+        margin: 1rem 0 2rem;
+        letter-spacing: 0.04em;
+        animation: fadeUp 0.7s ease 0.2s both;
+      }
+      .hero-meta {
+        display: flex;
+        gap: 2rem;
+        justify-content: center;
+        flex-wrap: wrap;
+        animation: fadeUp 0.7s ease 0.3s both;
+      }
+      .hero-stat {
+        text-align: center;
+        background: rgba(255, 255, 255, 0.07);
+        border: 1px solid rgba(200, 134, 42, 0.3);
+        border-radius: 12px;
+        padding: 1rem 1.5rem;
+      }
+      .hero-stat .val {
+        font-family: "Playfair Display", serif;
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--gold);
+        display: block;
+      }
+      .hero-stat .label {
+        font-size: 0.7rem;
+        color: rgba(240, 230, 200, 0.6);
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+      }
+      .scroll-hint {
+        position: absolute;
+        bottom: 2rem;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        color: rgba(240, 230, 200, 0.4);
+        font-size: 0.7rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        animation: bounce 2s infinite;
+      }
+      .scroll-hint::after {
+        content: "↓";
+        font-size: 1.2rem;
+        color: var(--amber);
+      }
+
+      /* ─── SECTION SHELL ─── */
+      .section {
+        padding: 5rem 0;
+      }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+
+      .section-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        padding: 4px 12px;
+        border-radius: 4px;
+        margin-bottom: 0.75rem;
+      }
+      .section-title {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+        font-weight: 700;
+        line-height: 1.2;
+        margin-bottom: 0.5rem;
+      }
+      .section-desc {
+        font-size: 0.92rem;
+        color: var(--muted);
+        max-width: 640px;
+        line-height: 1.65;
+        margin-bottom: 2.5rem;
+      }
+
+      /* ─── LAYER HEADER STRIP ─── */
+      .layer-strip {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem 1.5rem;
+        border-radius: 12px;
+        margin-bottom: 1.5rem;
+      }
+      .layer-num {
+        font-family: "Playfair Display", serif;
+        font-size: 2.5rem;
+        font-weight: 900;
+        opacity: 0.25;
+        line-height: 1;
+        min-width: 60px;
+      }
+      .layer-info h2 {
+        font-family: "Playfair Display", serif;
+        font-size: 1.25rem;
+        font-weight: 700;
+      }
+      .layer-info p {
+        font-size: 0.8rem;
+        opacity: 0.75;
+        margin-top: 2px;
+      }
+
+      /* ─── LAYER 1 — STORAGE ─── */
+      #layer1 {
+        background: var(--cream);
+      }
+      .l1-strip {
+        background: linear-gradient(135deg, #2d4a1e, #3d6429);
+        color: white;
+      }
+      .nodes-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin-bottom: 1rem;
+      }
+      .node-card {
+        background: white;
+        border: 1px solid rgba(45, 74, 30, 0.12);
+        border-radius: 12px;
+        padding: 1.25rem;
+        position: relative;
+        overflow: hidden;
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+      }
+      .node-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, var(--earth), var(--leaf));
+      }
+      .node-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 24px var(--shadow);
+      }
+      .node-card h3 {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--earth);
+        margin-bottom: 6px;
+      }
+      .node-card .capacity {
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: var(--charcoal);
+        font-family: "Playfair Display", serif;
+      }
+      .node-card p {
+        font-size: 0.72rem;
+        color: var(--muted);
+        margin-top: 4px;
+        line-height: 1.5;
+      }
+      .intake-card {
+        background: linear-gradient(135deg, var(--amber) 0%, #a0661a 100%);
+        color: white;
+        border-color: transparent;
+      }
+      .intake-card::before {
+        background: white;
+      }
+      .intake-card h3,
+      .intake-card .capacity {
+        color: white;
+      }
+      .intake-card p {
+        color: rgba(255, 255, 255, 0.8);
+      }
+      .tech-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+      .tag {
+        display: inline-block;
+        font-size: 0.67rem;
+        font-weight: 600;
+        padding: 3px 9px;
+        border-radius: 20px;
+        letter-spacing: 0.03em;
+      }
+      .tag-green {
+        background: rgba(45, 74, 30, 0.1);
+        color: var(--earth);
+      }
+      .tag-amber {
+        background: rgba(200, 134, 42, 0.15);
+        color: var(--clay);
+      }
+      .tag-sky {
+        background: rgba(26, 95, 122, 0.1);
+        color: var(--sky);
+      }
+      .transport-banner {
+        background: linear-gradient(90deg, var(--earth) 0%, var(--sky) 100%);
+        color: white;
+        border-radius: 8px;
+        padding: 0.75rem 1.25rem;
+        font-size: 0.8rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin: 1.5rem 0;
+      }
+      .transport-banner .arrow-icon {
+        font-size: 1.2rem;
+      }
+
+      /* ─── LAYER 2 — PROCESSING ─── */
+      #layer2 {
+        background: #f5edda;
+      }
+      .l2-strip {
+        background: linear-gradient(135deg, #1a5f7a, #0d3d52);
+        color: white;
+      }
+      .process-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 1rem;
+      }
+      .process-card {
+        background: white;
+        border-radius: 12px;
+        padding: 1.25rem;
+        border: 1px solid rgba(26, 95, 122, 0.1);
+        position: relative;
+        overflow: hidden;
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+      }
+      .process-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, var(--sky), var(--sky-light));
+      }
+      .process-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 24px var(--shadow);
+      }
+      .process-icon {
+        font-size: 1.8rem;
+        margin-bottom: 0.5rem;
+      }
+      .process-card h3 {
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: var(--sky);
+        margin-bottom: 6px;
+      }
+      .process-card .detail {
+        font-size: 0.7rem;
+        color: var(--muted);
+        line-height: 1.5;
+      }
+      .cost-badge {
+        display: inline-block;
+        background: rgba(26, 95, 122, 0.08);
+        color: var(--sky);
+        font-size: 0.68rem;
+        font-weight: 700;
+        padding: 2px 8px;
+        border-radius: 4px;
+        margin-top: 8px;
+      }
+
+      /* ─── LAYER 3 — DIGITAL ─── */
+      #layer3 {
+        background: var(--cream);
+      }
+      .l3-strip {
+        background: linear-gradient(135deg, #8b5e3c, #6b3a1f);
+        color: white;
+      }
+      .digital-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+      }
+      .digital-card {
+        border-radius: 14px;
+        padding: 1.5rem;
+        position: relative;
+        overflow: hidden;
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+        border: 1px solid rgba(139, 94, 60, 0.15);
+        background: white;
+      }
+      .digital-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px var(--shadow);
+      }
+      .digital-card .d-icon {
+        font-size: 2rem;
+        margin-bottom: 0.6rem;
+      }
+      .digital-card h3 {
+        font-size: 0.9rem;
+        font-weight: 700;
+        margin-bottom: 8px;
+      }
+      .digital-card ul {
+        list-style: none;
+        padding: 0;
+      }
+      .digital-card ul li {
+        font-size: 0.72rem;
+        color: var(--muted);
+        padding: 2px 0;
+        display: flex;
+        align-items: flex-start;
+        gap: 5px;
+      }
+      .digital-card ul li::before {
+        content: "→";
+        color: var(--amber);
+        flex-shrink: 0;
+      }
+      .card-enam {
+        border-top: 3px solid #2e7d32;
+      }
+      .card-ondc {
+        border-top: 3px solid #1565c0;
+      }
+      .card-ai {
+        border-top: 3px solid var(--amber);
+      }
+      .card-dbt {
+        border-top: 3px solid var(--terracotta);
+      }
+      .card-offline {
+        border-top: 3px solid var(--muted);
+      }
+      .platform-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-bottom: 1.5rem;
+      }
+
+      /* ─── LAYER 4 — LOGISTICS ─── */
+      #layer4 {
+        background: #edf2e8;
+      }
+      .l4-strip {
+        background: linear-gradient(135deg, #5c3a1e, #8b5e3c);
+        color: white;
+      }
+      .logistics-flow {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0;
+        position: relative;
+      }
+      .tier-card {
+        background: white;
+        padding: 1.5rem 1.25rem;
+        position: relative;
+        border: 1px solid rgba(92, 58, 30, 0.1);
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+      }
+      .tier-card:first-child {
+        border-radius: 12px 0 0 12px;
+      }
+      .tier-card:last-child {
+        border-radius: 0 12px 12px 0;
+      }
+      .tier-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 30px var(--shadow);
+        z-index: 2;
+      }
+      .tier-num {
+        font-size: 0.65rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 0.5rem;
+      }
+      .tier-card h3 {
+        font-family: "Playfair Display", serif;
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--clay);
+        margin-bottom: 0.5rem;
+      }
+      .tier-card .flow {
+        font-size: 0.75rem;
+        color: var(--charcoal);
+        line-height: 1.6;
+      }
+      .tier-card .cost {
+        font-size: 0.72rem;
+        font-weight: 600;
+        color: var(--earth);
+        margin-top: 8px;
+        background: rgba(45, 74, 30, 0.08);
+        padding: 4px 8px;
+        border-radius: 4px;
+        display: inline-block;
+      }
+      .tier-arrow {
+        position: absolute;
+        right: -14px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 28px;
+        height: 28px;
+        background: var(--amber);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 0.8rem;
+        z-index: 5;
+      }
+      .tier-card:last-child .tier-arrow {
+        display: none;
+      }
+      .logistics-chain {
+        font-size: 0.78rem;
+        color: var(--muted);
+        text-align: center;
+        padding: 1rem;
+        border-top: 1px dashed rgba(92, 58, 30, 0.2);
+        margin-top: 1rem;
+      }
+
+      /* ─── LAYER 5 — KIOSK ─── */
+      #layer5 {
+        background: var(--cream);
+      }
+      .l5-strip {
+        background: linear-gradient(135deg, #2d6a4f, #1b4332);
+        color: white;
+      }
+      .kiosk-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+      }
+      .kiosk-card {
+        border-radius: 14px;
+        overflow: hidden;
+        border: 1px solid rgba(45, 106, 79, 0.15);
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+      }
+      .kiosk-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 28px var(--shadow);
+      }
+      .kiosk-card-head {
+        padding: 1rem 1.25rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .kiosk-card-body {
+        background: white;
+        padding: 1rem 1.25rem;
+      }
+      .kiosk-card h3 {
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: white;
+      }
+      .kiosk-card .k-icon {
+        font-size: 1.5rem;
+      }
+      .kiosk-card .k-detail {
+        font-size: 0.72rem;
+        line-height: 1.6;
+        color: var(--muted);
+      }
+      .kiosk-card .k-price {
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: var(--earth);
+        margin-top: 6px;
+      }
+      .k-wheat {
+        background: linear-gradient(135deg, #c8862a, #96601a);
+      }
+      .k-dal {
+        background: linear-gradient(135deg, #e8a93a, #c07820);
+      }
+      .k-anaj {
+        background: linear-gradient(135deg, #2e86ab, #1a5f7a);
+      }
+      .k-pds {
+        background: linear-gradient(135deg, #2d6a4f, #1b4332);
+      }
+      .k-shg {
+        background: linear-gradient(135deg, #8b3a62, #5c2040);
+      }
+
+      /* ─── IMPACT SECTION ─── */
+      #impact {
+        background: linear-gradient(
+          160deg,
+          var(--charcoal) 0%,
+          #2d3a20 50%,
+          #1a3a50 100%
+        );
+        color: white;
+        padding: 5rem 0;
+        position: relative;
+        overflow: hidden;
+      }
+      #impact::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: radial-gradient(
+          circle at 1px 1px,
+          rgba(248, 200, 66, 0.05) 1px,
+          transparent 0
+        );
+        background-size: 28px 28px;
+      }
+      .impact-header {
+        text-align: center;
+        margin-bottom: 3rem;
+      }
+      .impact-header .section-label {
+        background: rgba(200, 134, 42, 0.2);
+        color: var(--gold);
+        border: 1px solid rgba(200, 134, 42, 0.3);
+      }
+      .impact-header .section-title {
+        color: white;
+      }
+      .impact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+        margin-bottom: 3rem;
+      }
+      .impact-card {
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 16px;
+        padding: 2rem;
+      }
+      .impact-card.highlight {
+        background: linear-gradient(
+          135deg,
+          rgba(200, 134, 42, 0.2),
+          rgba(196, 82, 42, 0.15)
+        );
+        border-color: rgba(200, 134, 42, 0.4);
+        grid-column: 1 / -1;
+      }
+      .impact-card h3 {
+        font-family: "Playfair Display", serif;
+        font-size: 1.4rem;
+        color: var(--gold);
+        margin-bottom: 0.5rem;
+      }
+      .impact-card p {
+        font-size: 0.85rem;
+        color: rgba(255, 255, 255, 0.7);
+        line-height: 1.6;
+      }
+      .income-figure {
+        font-family: "Playfair Display", serif;
+        font-size: 3rem;
+        font-weight: 900;
+        color: var(--gold);
+        display: block;
+        margin: 0.5rem 0;
+      }
+      .income-sub {
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.6);
+      }
+      .eliminated-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 1rem;
+      }
+      .elim-tag {
+        background: rgba(196, 82, 42, 0.2);
+        border: 1px solid rgba(196, 82, 42, 0.4);
+        color: #e8806a;
+        padding: 4px 10px;
+        border-radius: 4px;
+        font-size: 0.7rem;
+        font-weight: 600;
+        text-decoration: line-through;
+        text-decoration-color: rgba(196, 82, 42, 0.6);
+      }
+      .savings-bar {
+        margin-top: 1rem;
+      }
+      .bar-label {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.75rem;
+        margin-bottom: 6px;
+        color: rgba(255, 255, 255, 0.7);
+      }
+      .bar-track {
+        height: 8px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 4px;
+        overflow: hidden;
+      }
+      .bar-fill {
+        height: 100%;
+        border-radius: 4px;
+        background: linear-gradient(90deg, var(--amber), var(--gold));
+        animation: growBar 1.5s ease both;
+      }
+
+      /* ─── SCHEMES ─── */
+      #schemes {
+        background: var(--parchment);
+        padding: 4rem 0;
+      }
+      .schemes-header {
+        text-align: center;
+        margin-bottom: 2.5rem;
+      }
+      .schemes-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+        gap: 1rem;
+      }
+      .scheme-card {
+        background: white;
+        border-radius: 10px;
+        padding: 1.25rem 1rem;
+        text-align: center;
+        border: 1px solid rgba(45, 74, 30, 0.1);
+        transition: all 0.2s;
+      }
+      .scheme-card:hover {
+        background: var(--earth);
+        color: white;
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(45, 74, 30, 0.2);
+      }
+      .scheme-card:hover .s-name {
+        color: var(--gold);
+      }
+      .scheme-card:hover .s-desc {
+        color: rgba(255, 255, 255, 0.7);
+      }
+      .s-icon {
+        font-size: 1.6rem;
+        margin-bottom: 0.4rem;
+      }
+      .s-name {
+        font-size: 0.78rem;
+        font-weight: 700;
+        color: var(--earth);
+        margin-bottom: 3px;
+      }
+      .scheme-card:hover .s-name {
+        color: var(--gold);
+      }
+      .s-desc {
+        font-size: 0.65rem;
+        color: var(--muted);
+      }
+
+      /* ─── FOOTER ─── */
+      footer {
+        background: var(--charcoal);
+        color: rgba(255, 255, 255, 0.5);
+        padding: 2rem;
+        text-align: center;
+        font-size: 0.75rem;
+        line-height: 1.8;
+      }
+      footer strong {
+        color: var(--gold);
+      }
+
+      /* ─── ANIMATIONS ─── */
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translateX(-50%) translateY(0);
+        }
+        50% {
+          transform: translateX(-50%) translateY(6px);
+        }
+      }
+      @keyframes growBar {
+        from {
+          width: 0;
+        }
+      }
+      .fade-in {
+        opacity: 0;
+        transform: translateY(24px);
+        transition:
+          opacity 0.6s ease,
+          transform 0.6s ease;
+      }
+      .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* ─── RESPONSIVE ─── */
+      @media (max-width: 768px) {
+        nav {
+          padding: 0 1rem;
+        }
+        .nav-links {
+          display: none;
+        }
+        .logistics-flow {
+          grid-template-columns: 1fr 1fr;
+        }
+        .tier-card {
+          border-radius: 8px !important;
+          margin-bottom: 0.5rem;
+        }
+        .tier-arrow {
+          display: none !important;
+        }
+        .impact-grid {
+          grid-template-columns: 1fr;
+        }
+        .impact-card.highlight {
+          grid-column: 1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NAV -->
+    <nav>
+      <a class="nav-brand" href="#">
+        <span>🌾</span>
+        <div>
+          <div>Gram Kosh Bazaar</div>
+          <div class="hindi">ग्राम कोष बाज़ार</div>
+        </div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#layer1">Storage</a></li>
+        <li><a href="#layer2">Processing</a></li>
+        <li><a href="#layer3">Digital</a></li>
+        <li><a href="#layer4">Logistics</a></li>
+        <li><a href="#layer5">Kiosk</a></li>
+        <li><a href="#impact">Impact</a></li>
+        <li><a href="#schemes">Schemes</a></li>
+      </ul>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-badge">📋 Rural Economics · 2026</div>
+      <h1><span class="accent">Gram Kosh</span> Bazaar</h1>
+      <p class="hero-sub">
+        Farm to Consumer System · 5-Layer Integrated Market Linkage Architecture
+        · North India
+      </p>
+      <div class="hero-meta">
+        <div class="hero-stat">
+          <span class="val">5</span>
+          <span class="label">Integrated Layers</span>
+        </div>
+        <div class="hero-stat">
+          <span class="val">+₹35K</span>
+          <span class="label">Farmer Income / HH</span>
+        </div>
+        <div class="hero-stat">
+          <span class="val">8</span>
+          <span class="label">Middlemen Removed</span>
+        </div>
+        <div class="hero-stat">
+          <span class="val">10–18%</span>
+          <span class="label">Below Kirana Price</span>
+        </div>
+      </div>
+      <div class="scroll-hint">Scroll to explore</div>
+    </section>
+
+    <!-- LAYER 1 -->
+    <section class="section" id="layer1">
+      <div class="container">
+        <div class="layer-strip l1-strip fade-in">
+          <div class="layer-num">01</div>
+          <div class="layer-info">
+            <h2>Gram Kosh Village Storage Nodes</h2>
+            <p>
+              Gram Panchayat Land · LSCEB fire-resistant structure ·
+              Ferro-cement vault · QR lot tagging · Solar tablet · Moisture
+              meter · Dunnage pallets
+            </p>
+          </div>
+        </div>
+        <div class="nodes-grid fade-in">
+          <div class="node-card">
+            <h3>🏚 Village Node 1–3</h3>
+            <div class="capacity">20 MT</div>
+            <p>Gram Kosh store · QR tagged lots · FPO members</p>
+          </div>
+          <div class="node-card">
+            <h3>🏚 Village Node 4–6</h3>
+            <div class="capacity">20 MT</div>
+            <p>Gram Kosh store · QR tagged lots · FPO members</p>
+          </div>
+          <div class="node-card">
+            <h3>🏚 Village Node 7–8</h3>
+            <div class="capacity">20 MT</div>
+            <p>Gram Kosh store · QR tagged lots · FPO members</p>
+          </div>
+          <div class="node-card">
+            <h3>🏚 Village Node 9–10</h3>
+            <div class="capacity">20 MT</div>
+            <p>Gram Kosh store · QR tagged lots · FPO members</p>
+          </div>
+          <div class="node-card intake-card">
+            <h3>👨‍🌾 Farmer Intake</h3>
+            <div class="capacity">Aadhaar ✓</div>
+            <p>Moisture test · Weigh · Register<br />PM-KISAN DBT linked</p>
+          </div>
+        </div>
+        <div class="tech-tags fade-in">
+          <span class="tag tag-green">☀️ Solar Tablet</span>
+          <span class="tag tag-green">📦 Dunnage Pallets</span>
+          <span class="tag tag-amber">🔥 LSCEB Fire-Resistant</span>
+          <span class="tag tag-sky">💧 Moisture Meter</span>
+          <span class="tag tag-sky">📱 QR Lot Tagging</span>
+          <span class="tag tag-amber">🏦 Ferro-Cement Vault</span>
+        </div>
+        <div class="transport-banner fade-in">
+          <span class="arrow-icon">🚚</span>
+          <span
+            ><strong>FPO middle-mile vehicle (own cargo tempo)</strong> —
+            eliminates transport contractor margin — direct farm-to-hub
+            movement</span
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- LAYER 2 -->
+    <section class="section" id="layer2">
+      <div class="container">
+        <div class="layer-strip l2-strip fade-in">
+          <div class="layer-num">02</div>
+          <div class="layer-info">
+            <h2>Gram Kosh Processing Hub</h2>
+            <p>
+              1 per cluster of 5–10 villages · FPO-owned · Destoner · Rotary
+              grader · Form-fill-seal packer · FSSAI test kit · Batch/MRP
+              printer · Solar 3 kW · Cold chamber (flood zones)
+            </p>
+          </div>
+        </div>
+        <div class="process-grid fade-in">
+          <div class="process-card">
+            <div class="process-icon">⚙️</div>
+            <h3>Clean + Grade</h3>
+            <div class="detail">
+              Destoner + rotary grader<br />3 quality grades separated
+            </div>
+            <div class="cost-badge">INR 85K–1.8L equipment</div>
+          </div>
+          <div class="process-card">
+            <div class="process-icon">📦</div>
+            <h3>Pack + Label</h3>
+            <div class="detail">
+              FFS machine: 1/2/5/25 kg<br />BOPP branded bags
+            </div>
+            <div class="cost-badge">INR 1.8L–2.8L equipment</div>
+          </div>
+          <div class="process-card">
+            <div class="process-icon">📱</div>
+            <h3>QR Traceability</h3>
+            <div class="detail">
+              Lot ID · Farmer name<br />Village · Variety · Date<br />Farm-to-fork
+              scan record
+            </div>
+            <div class="cost-badge">Full chain traceability</div>
+          </div>
+          <div class="process-card">
+            <div class="process-icon">🧪</div>
+            <h3>FSSAI Testing</h3>
+            <div class="detail">
+              Moisture · Protein · Purity<br />Adulteration check
+            </div>
+            <div class="cost-badge">Central license INR 7.5K/yr</div>
+          </div>
+          <div class="process-card">
+            <div class="process-icon">💰</div>
+            <h3>FPO Revenue</h3>
+            <div class="detail">
+              Processing: INR 50/qtl<br />Packaging: INR 120–200/qtl
+            </div>
+            <div class="cost-badge">Surplus → farmer dividend</div>
+          </div>
+        </div>
+        <div
+          class="transport-banner fade-in"
+          style="background: linear-gradient(90deg, var(--sky), var(--earth))"
+        >
+          <span class="arrow-icon">📡</span>
+          <span
+            ><strong>e-NAM / ONDC listing — real-time price broadcast</strong> —
+            no broker needed — direct market discovery</span
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- LAYER 3 -->
+    <section class="section" id="layer3">
+      <div class="container">
+        <div class="layer-strip l3-strip fade-in">
+          <div class="layer-num">03</div>
+          <div class="layer-info">
+            <h2>Gram Kosh Digital Platform</h2>
+            <p>
+              Mobile-first · Hindi voice · Offline-capable · e-NAM API · ONDC ·
+              PM-KISAN DBT · NCDEX price feed · AI advisory · BharatNet / 4G ·
+              DPDPA compliant
+            </p>
+          </div>
+        </div>
+        <div class="platform-tags fade-in">
+          <span class="tag tag-sky">🌐 BharatNet / 4G</span>
+          <span class="tag tag-sky">🔒 DPDPA Compliant</span>
+          <span class="tag tag-amber">🤖 AI Advisory</span>
+          <span class="tag tag-green">📊 NCDEX Price Feed</span>
+          <span class="tag tag-green">🏦 PM-KISAN DBT</span>
+          <span class="tag tag-amber">📡 e-NAM API</span>
+          <span class="tag tag-sky">🛒 ONDC Network</span>
+        </div>
+        <div class="digital-grid fade-in">
+          <div class="digital-card card-enam">
+            <div class="d-icon">📊</div>
+            <h3 style="color: #2e7d32">e-NAM Integration</h3>
+            <ul>
+              <li>1,000+ registered buyers</li>
+              <li>Live bid on all grain lots</li>
+              <li>No mandi broker needed</li>
+            </ul>
+          </div>
+          <div class="digital-card card-ondc">
+            <div class="d-icon">🛒</div>
+            <h3 style="color: #1565c0">ONDC Listing</h3>
+            <ul>
+              <li>Paytm · Meesho · Magicpin</li>
+              <li>Urban consumer access</li>
+              <li>No platform exclusivity</li>
+            </ul>
+          </div>
+          <div class="digital-card card-ai">
+            <div class="d-icon">🤖</div>
+            <h3 style="color: var(--clay)">AI Price Advisory</h3>
+            <ul>
+              <li>Hindi voice alerts daily</li>
+              <li>7-day NCDEX trend chart</li>
+              <li>Breaks arhatia info monopoly</li>
+            </ul>
+          </div>
+          <div class="digital-card card-dbt">
+            <div class="d-icon">💸</div>
+            <h3 style="color: var(--terracotta)">DBT Direct Payment</h3>
+            <ul>
+              <li>Aadhaar-linked bank account</li>
+              <li>PM-KISAN infrastructure</li>
+              <li>Zero cash, zero delay</li>
+            </ul>
+          </div>
+          <div class="digital-card card-offline">
+            <div class="d-icon">📵</div>
+            <h3 style="color: var(--muted)">Offline-first</h3>
+            <ul>
+              <li>Works without internet</li>
+              <li>SMS fallback system</li>
+              <li>Syncs when connected</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LAYER 4 -->
+    <section class="section" id="layer4">
+      <div class="container">
+        <div class="layer-strip l4-strip fade-in">
+          <div class="layer-num">04</div>
+          <div class="layer-info">
+            <h2>Gram Kosh Logistics Network</h2>
+            <p>
+              FPO-owned 3-tier chain · Bullock cart / tractor → FPO mini-truck →
+              FPO cargo tempo → E-cycle doorstep · AIF-financed vehicles ·
+              NABARD subsidy 25%
+            </p>
+          </div>
+        </div>
+        <div class="logistics-flow fade-in">
+          <div class="tier-card">
+            <div class="tier-num">Tier 1</div>
+            <h3>First Mile</h3>
+            <div class="flow">
+              Farm field → Storage node<br />Bullock cart / tractor
+            </div>
+            <div class="cost">INR 50–100/MT</div>
+            <div class="tier-arrow">→</div>
+          </div>
+          <div class="tier-card">
+            <div class="tier-num">Tier 2</div>
+            <h3>Middle Mile</h3>
+            <div class="flow">
+              Storage node → Hub (5–10 km)<br />FPO mini-truck
+            </div>
+            <div class="cost">INR 80–120/MT</div>
+            <div class="tier-arrow">→</div>
+          </div>
+          <div class="tier-card">
+            <div class="tier-num">Tier 3</div>
+            <h3>Last Mile</h3>
+            <div class="flow">
+              Hub → Urban kiosk (15–20 km)<br />FPO cargo tempo
+            </div>
+            <div class="cost">INR 150–300/MT</div>
+            <div class="tier-arrow">→</div>
+          </div>
+          <div class="tier-card">
+            <div class="tier-num">Tier 4</div>
+            <h3>Doorstep</h3>
+            <div class="flow">Kiosk → Consumer home<br />E-cycle delivery</div>
+            <div class="cost">INR 20–40/order</div>
+          </div>
+        </div>
+        <div class="logistics-chain fade-in">
+          🌾 Bullock cart / Tractor &nbsp;→&nbsp; 🚛 FPO Mini-truck
+          &nbsp;→&nbsp; 🚌 FPO Cargo Tempo &nbsp;→&nbsp; 🚲 E-cycle Doorstep
+        </div>
+        <div
+          class="transport-banner fade-in"
+          style="
+            background: linear-gradient(90deg, #5c3a1e, #2d6a4f);
+            margin-top: 1rem;
+          "
+        >
+          <span class="arrow-icon">✅</span>
+          <span
+            ><strong>Branded grain delivery — QR verified</strong> — 10–18%
+            below kirana price to consumer — full chain accountability</span
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- LAYER 5 -->
+    <section class="section" id="layer5">
+      <div class="container">
+        <div class="layer-strip l5-strip fade-in">
+          <div class="layer-num">05</div>
+          <div class="layer-info">
+            <h2>Gram Kosh Bazaar Kiosk</h2>
+            <p>
+              Last-mile branded retail + consumer doorstep delivery · SHG
+              franchisee · UPI + ration card POS · 12–15% franchisee margin ·
+              Anaj Box subscription · PDS integration · ONDC enabled
+            </p>
+          </div>
+        </div>
+        <div class="kiosk-grid fade-in">
+          <div class="kiosk-card">
+            <div class="kiosk-card-head k-wheat">
+              <span class="k-icon">🌾</span>
+              <h3>Wheat / Atta</h3>
+            </div>
+            <div class="kiosk-card-body">
+              <div class="k-detail">
+                Premium cleaned + graded<br />Branded BOPP bag<br />Origin-labelled
+                and traced
+              </div>
+              <div class="k-price">MRP ₹35–45/kg</div>
+            </div>
+          </div>
+          <div class="kiosk-card">
+            <div class="kiosk-card-head k-dal">
+              <span class="k-icon">🫘</span>
+              <h3>Dal + Oilseeds</h3>
+            </div>
+            <div class="kiosk-card-body">
+              <div class="k-detail">
+                Arhar · Moong · Mustard<br />Origin-labelled + traced
+              </div>
+              <div class="k-price">MRP ₹100–160/kg</div>
+            </div>
+          </div>
+          <div class="kiosk-card">
+            <div class="kiosk-card-head k-anaj">
+              <span class="k-icon">📦</span>
+              <h3>Anaj Box</h3>
+            </div>
+            <div class="kiosk-card-body">
+              <div class="k-detail">
+                Monthly subscription pack<br />10–25 kg mixed grains
+              </div>
+              <div class="k-price">₹550–1,100/month</div>
+            </div>
+          </div>
+          <div class="kiosk-card">
+            <div class="kiosk-card-head k-pds">
+              <span class="k-icon">🏛️</span>
+              <h3>PDS Integration</h3>
+            </div>
+            <div class="kiosk-card-body">
+              <div class="k-detail">
+                Ration card reader POS<br />QR-traced ration bags<br />Zero
+                diversion / adulteration
+              </div>
+              <div class="k-price">Government verified</div>
+            </div>
+          </div>
+          <div class="kiosk-card">
+            <div class="kiosk-card-head k-shg">
+              <span class="k-icon">👩‍🤝‍👩</span>
+              <h3>SHG Franchise</h3>
+            </div>
+            <div class="kiosk-card-body">
+              <div class="k-detail">
+                Women-led enterprise<br />INR 30–50K deposit
+              </div>
+              <div class="k-price">₹8–18K/month income</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- IMPACT -->
+    <section id="impact">
+      <div class="container">
+        <div class="impact-header fade-in">
+          <div
+            class="section-label"
+            style="
+              background: rgba(200, 134, 42, 0.2);
+              color: var(--gold);
+              border: 1px solid rgba(200, 134, 42, 0.3);
+            "
+          >
+            📈 Economic Impact
+          </div>
+          <h2 class="section-title" style="color: white">
+            Arhatia Chain Eliminated
+          </h2>
+          <p
+            class="section-desc"
+            style="
+              color: rgba(255, 255, 255, 0.6);
+              max-width: 640px;
+              margin: 0.5rem auto 0;
+            "
+          >
+            8 intermediary categories removed · FPO owns processing + logistics
+            · Digital price discovery · DBT direct payment · Farm-to-fork QR
+            traceability
+          </p>
+        </div>
+        <div class="impact-grid fade-in">
+          <div class="impact-card highlight">
+            <h3>₹720–1,395 per quintal</h3>
+            <p>
+              Redirected from middlemen to farmers and consumers — the full
+              arhatia commission, transport margin, and broker cut now flows
+              back to the value chain endpoints.
+            </p>
+            <div class="eliminated-list">
+              <span class="elim-tag">Village Arhatia</span>
+              <span class="elim-tag">Mandi Broker</span>
+              <span class="elim-tag">Commission Agent</span>
+              <span class="elim-tag">Private Transporter</span>
+              <span class="elim-tag">Urban Wholesaler</span>
+              <span class="elim-tag">Kirana Markup</span>
+              <span class="elim-tag">Storage Contractor</span>
+              <span class="elim-tag">Packaging Middleman</span>
+            </div>
+          </div>
+          <div class="impact-card">
+            <h3>Farmer Income Impact</h3>
+            <span class="income-figure">+₹18K–35K</span>
+            <p class="income-sub">
+              Per household per year · +28–40% net income increase
+            </p>
+            <div class="savings-bar">
+              <div class="bar-label">
+                <span>Storage premium</span><span>+8%</span>
+              </div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width: 40%"></div>
+              </div>
+            </div>
+            <div class="savings-bar" style="margin-top: 8px">
+              <div class="bar-label">
+                <span>Value-addition packaging</span><span>+15%</span>
+              </div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width: 60%"></div>
+              </div>
+            </div>
+            <div class="savings-bar" style="margin-top: 8px">
+              <div class="bar-label">
+                <span>Commission + transport saved</span><span>+12%</span>
+              </div>
+              <div class="bar-track">
+                <div
+                  class="bar-fill"
+                  style="
+                    width: 50%;
+                    background: linear-gradient(
+                      90deg,
+                      var(--terracotta),
+                      var(--amber)
+                    );
+                  "
+                ></div>
+              </div>
+            </div>
+            <div class="savings-bar" style="margin-top: 8px">
+              <div class="bar-label">
+                <span>FPO dividend + MSP at gate</span><span>+5%</span>
+              </div>
+              <div class="bar-track">
+                <div
+                  class="bar-fill"
+                  style="
+                    width: 25%;
+                    background: linear-gradient(
+                      90deg,
+                      var(--leaf),
+                      var(--gold)
+                    );
+                  "
+                ></div>
+              </div>
+            </div>
+          </div>
+          <div class="impact-card">
+            <h3>Consumer Savings</h3>
+            <span class="income-figure" style="font-size: 2rem">10–18%</span>
+            <p class="income-sub">
+              Below kirana market price · Branded, QR-verified grain at doorstep
+            </p>
+            <div
+              style="
+                margin-top: 1rem;
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+              "
+            >
+              <div
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 10px;
+                  font-size: 0.78rem;
+                  color: rgba(255, 255, 255, 0.7);
+                "
+              >
+                <span>✅</span> FSSAI tested, no adulteration
+              </div>
+              <div
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 10px;
+                  font-size: 0.78rem;
+                  color: rgba(255, 255, 255, 0.7);
+                "
+              >
+                <span>✅</span> Origin-labelled, farm-to-fork traceable
+              </div>
+              <div
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 10px;
+                  font-size: 0.78rem;
+                  color: rgba(255, 255, 255, 0.7);
+                "
+              >
+                <span>✅</span> UPI payment, ONDC enabled
+              </div>
+              <div
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 10px;
+                  font-size: 0.78rem;
+                  color: rgba(255, 255, 255, 0.7);
+                "
+              >
+                <span>✅</span> Doorstep delivery by SHG enterprise
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCHEMES -->
+    <section id="schemes">
+      <div class="container">
+        <div class="schemes-header fade-in">
+          <div
+            class="section-label"
+            style="background: rgba(45, 74, 30, 0.1); color: var(--earth)"
+          >
+            🏛️ Government Scheme Convergence
+          </div>
+          <h2 class="section-title">Policy & Programme Alignment</h2>
+          <p
+            class="section-desc"
+            style="margin: 0.5rem auto 0; text-align: center"
+          >
+            Gram Kosh Bazaar is designed to leverage all major central and state
+            agricultural schemes
+          </p>
+        </div>
+        <div class="schemes-grid fade-in">
+          <div class="scheme-card">
+            <div class="s-icon">🤝</div>
+            <div class="s-name">PM FPO Scheme</div>
+            <div class="s-desc">FPO formation support</div>
+          </div>
+          <div class="scheme-card">
+            <div class="s-icon">🏦</div>
+            <div class="s-name">AIF</div>
+            <div class="s-desc">3% interest subvention</div>
+          </div>
+          <div class="scheme-card">
+            <div class="s-icon">📋</div>
+            <div class="s-name">MGNREGS</div>
+            <div class="s-desc">Storage construction</div>
+          </div>
+          <div class="scheme-card">
+            <div class="s-icon">📊</div>
+            <div class="s-name">e-NAM</div>
+            <div class="s-desc">Digital market access</div>
+          </div>
+          <div class="scheme-card">
+            <div class="s-icon">🛒</div>
+            <div class="s-name">ONDC</div>
+            <div class="s-desc">Open commerce network</div>
+          </div>
+          <div class="scheme-card">
+            <div class="s-icon">💸</div>
+            <div class="s-name">PM-KISAN DBT</div>
+            <div class="s-desc">Direct benefit transfer</div>
+          </div>
+          <div class="scheme-card">
+            <div class="s-icon">🌾</div>
+            <div class="s-name">RKVY</div>
+            <div class="s-desc">Agri value chain</div>
+          </div>
+          <div class="scheme-card">
+            <div class="s-icon">🏗️</div>
+            <div class="s-name">PMGDISHA</div>
+            <div class="s-desc">Digital literacy</div>
+          </div>
+          <div class="scheme-card">
+            <div class="s-icon">🧪</div>
+            <div class="s-name">FSSAI</div>
+            <div class="s-desc">Food safety licensing</div>
+          </div>
+          <div class="scheme-card">
+            <div class="s-icon">🏦</div>
+            <div class="s-name">NABARD WDRA</div>
+            <div class="s-desc">Warehouse receipts</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <strong>Gram Kosh Bazaar</strong> — Farm to Consumer System<br />
+      5-Layer Integrated Market Linkage Architecture · North India<br />
+      <span style="opacity: 0.8"
+        >Designed and Developed by Ravi Shankar Singh, Head State e-Mission
+        Team, Uttarakhand for Rural Economics and Agricultural Supply Chain
+        Management · 2026</span
+      >
+    </footer>
+
+    <script>
+      // Intersection observer for fade-in animations
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry, i) => {
+            if (entry.isIntersecting) {
+              setTimeout(() => entry.target.classList.add("visible"), i * 80);
+            }
+          });
+        },
+        { threshold: 0.08 },
+      );
+
+      document
+        .querySelectorAll(".fade-in")
+        .forEach((el) => observer.observe(el));
+
+      // Active nav link on scroll
+      const sections = document.querySelectorAll("section[id]");
+      const navLinks = document.querySelectorAll(".nav-links a");
+      window.addEventListener("scroll", () => {
+        let current = "";
+        sections.forEach((s) => {
+          if (window.scrollY >= s.offsetTop - 100) current = s.id;
+        });
+        navLinks.forEach((a) => {
+          a.style.background =
+            a.getAttribute("href") === "#" + current ? "var(--amber)" : "";
+          a.style.color =
+            a.getAttribute("href") === "#" + current ? "var(--charcoal)" : "";
+        });
+      });
+    </script>
+  </body>
+</html>
